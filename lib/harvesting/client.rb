@@ -52,7 +52,9 @@ module Harvesting
 
     # @return [Harvesting::Models::Projects]
     def projects(opts = {})
-      Harvesting::Models::Projects.new(get("projects", opts), opts, client: self)
+      project_id = opts.delete(:project_id)
+      path = project_id.nil? ? "projects" : "projects/#{project_id}"
+      Harvesting::Models::Projects.new(get(path, opts), opts, client: self)
     end
 
     # @return [Harvesting::Models::Tasks]
